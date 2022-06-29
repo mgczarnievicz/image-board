@@ -2,9 +2,37 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>My Imageboard</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <header> I am the header </header>
+    
+    <main>
+
+            <h1>Wellcame to my board</h1>
+
+    <!-- This container is for our Vue Instance -->
+    <div id="main">
+
+        <section v-if="cards.length" class="board">
+
+        <div v-for="card in cards"  v-bind:key="card.id"  class="card">
+                <!-- Bc the url is inside the tag we must bind -->
+            <img v-bind:src="card.url" alt="">
+            <div class="title"> <p>{{card.title}}</p> </div>
+        </div>
+
+        </section>
+    </div>
+
+
+    </main>
+    
+
+
+    <footer>&copy; MGCzI</footer>
+
     <script src="/js/app.js" type="module" crossorigin="use-credentials"></script>
 </body>
 </html>
