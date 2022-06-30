@@ -15,13 +15,28 @@
     <!-- This container is for our Vue Instance -->
     <div id="main">
 
-        <section v-if="cards.length" class="board">
+        <section class="uploadImg-section">
 
-        <div v-for="card in cards"  v-bind:key="card.id"  class="card">
-                <!-- Bc the url is inside the tag we must bind -->
-            <img v-bind:src="card.url" alt="">
-            <div class="title"> <p>{{card.title}}</p> </div>
-        </div>
+            <!-- action="/upload" method="post"  -->
+            <form enctype="multipart/form-data" @submit.prevent()="handleSubmit" class="form-upload">
+                <input type="text" name="title" placeholder="Title" class="input-text" required />
+                <input type="text" name="user" placeholder="User" class="input-text" required />
+                <input type="file" name="image" accept="image/*" />
+
+                <button type="submit" class="add-button">+</button>
+            </form>
+
+
+        </section>
+
+
+        <section v-if="cards.length" class="board-section">
+
+            <div v-for="card in cards"  v-bind:key="card.id"  class="card">
+                    <!-- Bc the url is inside the tag we must bind -->
+                <img v-bind:src="card.url" :alt="card.title">
+                <div class="title"> <p>{{card.title}}</p> </div>
+            </div>
 
         </section>
     </div>

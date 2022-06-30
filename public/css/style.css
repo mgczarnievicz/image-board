@@ -1,11 +1,3 @@
-* {
-    /* background-color: aquamarine; */
-    font-family: Arial, Helvetica, sans-serif;
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
-
 :root {
     /* --color-dark: #df7861; */
     /* --color-dark: #94b49f;
@@ -19,6 +11,16 @@
     --color-dark: #ad6989;
     --color-light: #ffeddb;
     --color-board: #562349;
+}
+
+* {
+    /* background-color: aquamarine; */
+    /* background-color: var(--color-light); */
+
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 /* ---------------------------------------------------
                     General Section
@@ -34,7 +36,7 @@ body {
 }
 
 header {
-    height: 70px;
+    height: 40px;
     width: 100%;
     background-color: var(--color-dark);
 }
@@ -70,7 +72,49 @@ h1 {
     justify-content: flex-start;
 }
 
-.board {
+/* --------------------------------------------------
+                Form Section
+-------------------------------------------------*/
+
+.uploadImg-section {
+    text-align: center;
+}
+
+.form-upload {
+    margin: 20px;
+}
+.form-upload .input-text {
+    height: 27px;
+    padding: 3px;
+
+    border: none;
+    border-bottom: 2px solid var(--color-board);
+    /* background-color: none; */
+    background-color: var(--color-light);
+
+    margin: 7px;
+}
+
+.add-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+    border: none;
+    /* border: 2px solid var(--color-light); */
+    background-color: var(--color-board);
+    color: var(--color-light);
+}
+
+.add-button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.513),
+        0 17px 50px 0 rgba(0, 0, 0, 0.409);
+}
+
+/* --------------------------------------------------
+                Board Section
+-------------------------------------------------*/
+.board-section {
     width: 100%;
 
     display: flex;
@@ -82,8 +126,9 @@ h1 {
 
 .card {
     width: 300px;
-    /* height: 250px; */
+    height: 250px;
 
+    background-color: whitesmoke;
     border: 3px solid var(--color-board);
     border-radius: 12px;
     display: flex;
@@ -95,6 +140,9 @@ h1 {
 
 .card img {
     width: 100%;
+    height: 80%;
+    /* border: 1px solid gray; */
+    box-shadow: 0px 0px 25px 5px rgba(180, 180, 180, 0.72);
     flex-grow: 1;
     object-fit: cover;
 }
