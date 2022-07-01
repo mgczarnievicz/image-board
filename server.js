@@ -7,14 +7,14 @@ const uidSafe = require("uid-safe");
 const path = require("path");
 const s3 = require("./s3");
 
-const { getAllImages, saveImage } = require("./db.js");
+const { getAllImages, saveImage, getCardById } = require("./db.js");
 
 app.use(express.static("./public"));
 
 app.use(express.json());
 
 // This to be able to grab from the form.
-// This will only work if the form is encritped as urlencoded.
+// This will only work if the form is encrypted as urlencoded.
 app.use(express.urlencoded({ extended: false }));
 
 const storage = multer.diskStorage({
@@ -50,19 +50,41 @@ app.use((req, res, next) => {
 // app.use(express.multipartFormData());
 
 app.get("/board", (req, res) => {
-    console.log("/board route has benn hits!");
+    console.log("/board route has been hits!");
     getAllImages().then((result) => {
-        console.log("result.rows", result.rows);
+        // console.log("result.rows", result.rows);
         res.json(result.rows);
     });
 });
 
-// uploader.single("image") imgae is the name of the input filed.
+app.get("/getCard/:id", (req, res) => {
+    console.log(
+        "-----------------------------------------------------------------------------"
+    );
+    console.log("/getCard route has been hits!");
+    console.log("req.params.id", req.params.id);
+
+    getCardById(req.params.id)
+        .then((result) => {
+            console.log("result.rows", result.rows[0]);
+            res.json(result.rows[0]);
+        })
+        .catch((err) => console.log("Error getCardByIs", err));
+
+    // getAllImages().then((result) => {
+    //     console.log("result.rows", result.rows);
+    //     res.json(result.rows);
+    // });
+
+    // res.json({ tempAnswer: true });
+});
+
+// uploader.single("image") image is the name of the input filed.
 app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     console.log(
         "-----------------------------------------------------------------------------"
     );
-    console.log("In upLoadeing");
+    console.log("In upLoading");
     // console.log("req.body:", req.body);
     // console.log("req.file:", req.file);
 

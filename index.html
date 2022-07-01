@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>My Imageboard</title>
+    <title>My Image Board</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -10,13 +10,11 @@
     
     <main>
 
-            <h1>Wellcame to my board</h1>
+            <h1>Welcome to my board</h1>
 
     <!-- This container is for our Vue Instance -->
     <div id="main">
-
         <section class="uploadImg-section">
-
             <!-- action="/upload" method="post"  -->
             <form enctype="multipart/form-data" @submit.prevent()="handleSubmit" class="form-upload">
                 <input type="text" name="title" placeholder="Title" class="input-text" required />
@@ -25,19 +23,19 @@
 
                 <button type="submit" class="add-button">+</button>
             </form>
-
-
         </section>
+
+        <!--  -->
+        <!-- v-bind:id-card="idCard" -->
+        <big-card v-if="idCard" v-bind:id-card="idCard"></big-card>
 
 
         <section v-if="cards.length" class="board-section">
-
-            <div v-for="card in cards"  v-bind:key="card.id"  class="card">
-                    <!-- Bc the url is inside the tag we must bind -->
-                <img v-bind:src="card.url" :alt="card.title">
+            <div v-for="card in cards"  v-bind:key="card.id"  class="card" @click="displaycard(card.id)">
+                    <!-- Bc the url is inside the tag we must bind    @click="display"-->
+                <img v-bind:src="card.url" :alt="card.title" v-bind:key="card.id" >
                 <div class="title"> <p>{{card.title}}</p> </div>
             </div>
-
         </section>
     </div>
 

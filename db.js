@@ -21,6 +21,10 @@ exports.getAllImages = () => {
     );
 };
 
+exports.getCardById = (id) => {
+    return db.query(`SELECT * FROM images WHERE id = $1`, [id]);
+};
+
 exports.saveImage = (url, username, title) => {
     return db.query(
         `INSERT INTO images (url, username, title)

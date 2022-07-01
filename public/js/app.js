@@ -1,4 +1,7 @@
 import * as Vue from "./vue.js";
+// Import my first component.
+import bigCard from "./big-card.js";
+
 // All vue code comes here
 const MAX_CARD = 6;
 
@@ -6,10 +9,15 @@ Vue.createApp({
     data() {
         return {
             name: "Cayenne",
-
             cards: [],
+            idCard: false,
         };
     }, //Data ends here
+
+    //Register here the component and where to find the info.
+    components: {
+        "big-card": bigCard,
+    },
 
     mounted() {
         // This will be automatic display when the app is shows.
@@ -18,36 +26,33 @@ Vue.createApp({
         fetch("/board")
             .then((resp) => resp.json())
             .then((data) => {
-                console.log("Respons form /board:", data);
+                console.log("Response form /board:", data);
                 this.cards = data;
             });
     },
 
     methods: {
         //this is where we define all of OUR functions
-        myFirstFunction: function (city) {
-            console.log(" myFirstFunction is running!!");
-            console.log("City name pass:", city);
-        },
 
         handleSubmit(e) {
             // We can put it here or in the html
             e.preventDefault();
-            console.log("I am handleling the submit");
+            console.log("I am handling the submit");
             fetch("/upload", {
                 method: "POST",
                 body: new FormData(e.target),
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    // data shoul be the image just ablodede
                     if (data.error) {
                         // manage the error
                     }
 
                     console.log("I finish uploading. Lets try to show");
+                    // I am updating my array
                     this.cards.unshift(data.image);
 
+                    // Controlling how many image to show
                     if (this.cards.length > MAX_CARD) {
                         this.cards.pop();
                     }
@@ -56,6 +61,11 @@ Vue.createApp({
                     console.log("this.cards.length", this.cards.length);
                 })
                 .catch();
+        },
+
+        displaycard(id) {
+            console.log("I am clicking in card:", id);
+            this.idCard = id;
         },
     },
 }).mount("#main");

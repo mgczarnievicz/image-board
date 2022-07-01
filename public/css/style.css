@@ -154,3 +154,17 @@ h1 {
     /* align-self: flex-end; */
     align-items: flex-end;
 }
+
+/* --------------------------------------------------
+                Big Card
+-------------------------------------------------*/
+
+.bigCard {
+    width: 500px;
+    height: 500px;
+
+    position: absolute;
+    background-color: aliceblue;
+    border: 2px solid var(--color-board);
+    border-radius: 12px;
+}
