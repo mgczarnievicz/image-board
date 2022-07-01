@@ -66,17 +66,27 @@ app.get("/getCard/:id", (req, res) => {
 
     getCardById(req.params.id)
         .then((result) => {
+            const imageCard = result.rows[0];
             console.log("result.rows", result.rows[0]);
-            res.json(result.rows[0]);
+            const option = {
+                day: "2-digit",
+                month: "2-digit",
+                year: "long",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+            };
+            // toLocaleDateString
+            console.log(
+                "Date nice:",
+                result.rows[0].created_at.toLocaleString("en-GB")
+            );
+            imageCard.created_at =
+                result.rows[0].created_at.toLocaleString("en-GB");
+
+            res.json(imageCard);
         })
         .catch((err) => console.log("Error getCardByIs", err));
-
-    // getAllImages().then((result) => {
-    //     console.log("result.rows", result.rows);
-    //     res.json(result.rows);
-    // });
-
-    // res.json({ tempAnswer: true });
 });
 
 // uploader.single("image") image is the name of the input filed.
@@ -85,25 +95,17 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
         "-----------------------------------------------------------------------------"
     );
     console.log("In upLoading");
-    // console.log("req.body:", req.body);
-    // console.log("req.file:", req.file);
 
     const { title, user } = req.body;
-    const url = `https://s3.amazonaws.com/spicedling/${req.file.filename}`;
+    // If I use the other credentials
+    // const url = `https://s3.amazonaws.com/spicedling/${req.file.filename}`;
+    const url = `https://imageboard-cy.s3.eu-central-1.amazonaws.com/${req.file.filename}`;
 
     // we need to generate the url of the image.
-    // spicedling/
     // https://s3.amazonaws.com/:yourBucketName/:filename
-
-    // console.log(`https://s3.amazonaws.com/spicedling/${req.file.filename}`);
+    // https://:yourBucketName.s3.eu-central-1.amazonaws.com/:filename.
 
     console.log(`\t title: ${title}\n\t user: ${user} \n\t url: ${url}`);
-
-    // Aca solo puedo validar el titulo y el usario pq no tengo acceso al archivo
-    // if (!req.body.title) {
-    //     return res.json({ error: "Missinf Field title" });
-    // }
-    // res.json({ success: true });
 
     saveImage(url, user, title)
         .then((result) => {
@@ -114,8 +116,6 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
             });
         })
         .catch((err) => console.log("err db", er));
-
-    // res.json({ tempAnswer: true });
 });
 
 app.get("*", (req, res) => {

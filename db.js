@@ -21,6 +21,15 @@ exports.getAllImages = () => {
     );
 };
 
+exports.getMoreImages = (id) => {
+    // id between 1 and 3
+    return db.query(
+        `SELECT * FROM images 
+        ORDER BY id DESC 
+        FETCH FIRST 3 ROWS ONLY`
+    );
+};
+
 exports.getCardById = (id) => {
     return db.query(`SELECT * FROM images WHERE id = $1`, [id]);
 };

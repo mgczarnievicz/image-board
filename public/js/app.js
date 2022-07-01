@@ -52,6 +52,8 @@ Vue.createApp({
                     // I am updating my array
                     this.cards.unshift(data.image);
 
+                    this.$refs.file.value = null;
+
                     // Controlling how many image to show
                     if (this.cards.length > MAX_CARD) {
                         this.cards.pop();
@@ -66,6 +68,10 @@ Vue.createApp({
         displaycard(id) {
             console.log("I am clicking in card:", id);
             this.idCard = id;
+        },
+
+        hidecard() {
+            this.idCard = false;
         },
     },
 }).mount("#main");

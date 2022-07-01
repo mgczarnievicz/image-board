@@ -17,7 +17,8 @@
     /* background-color: aquamarine; */
     /* background-color: var(--color-light); */
 
-    font-family: Arial, Helvetica, sans-serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: "Arima", cursive;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
@@ -35,11 +36,11 @@ body {
     justify-content: center;
 }
 
-header {
+/* header {
     height: 40px;
     width: 100%;
     background-color: var(--color-dark);
-}
+} */
 
 main {
     width: 100%;
@@ -78,21 +79,46 @@ h1 {
 
 .uploadImg-section {
     text-align: center;
+    width: 100%;
+}
+
+.uploadImg-section h1 {
+    font-family: "Fredericka the Great", cursive;
+    font-size: 72px;
+}
+
+.hidden {
+    display: none;
+}
+label {
+    cursor: pointer;
 }
 
 .form-upload {
     margin: 20px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
+
+.form-upload .select-img {
+    margin-right: 10px;
+}
+
 .form-upload .input-text {
     height: 27px;
     padding: 3px;
 
     border: none;
     border-bottom: 2px solid var(--color-board);
-    /* background-color: none; */
     background-color: var(--color-light);
 
     margin: 7px;
+}
+
+.form-upload .add-button {
+    margin-left: 10px;
 }
 
 .add-button {
@@ -104,6 +130,7 @@ h1 {
     /* border: 2px solid var(--color-light); */
     background-color: var(--color-board);
     color: var(--color-light);
+    cursor: pointer;
 }
 
 .add-button:hover {
@@ -124,10 +151,11 @@ h1 {
     align-content: space-around;
 }
 
-.card {
-    width: 300px;
-    height: 250px;
+/* --------------------------------------------------
+                Card
+-------------------------------------------------*/
 
+.card {
     background-color: whitesmoke;
     border: 3px solid var(--color-board);
     border-radius: 12px;
@@ -156,15 +184,63 @@ h1 {
 }
 
 /* --------------------------------------------------
+                Small Card
+-------------------------------------------------*/
+.small-card {
+    width: 300px;
+    height: 250px;
+}
+
+/* --------------------------------------------------
                 Big Card
 -------------------------------------------------*/
 
-.bigCard {
-    width: 500px;
-    height: 500px;
+.big-card {
+    width: 900px;
+    height: 600px;
 
     position: absolute;
-    background-color: aliceblue;
-    border: 2px solid var(--color-board);
-    border-radius: 12px;
+    margin: 5%;
+    z-index: 2;
+    /* box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.409); */
+}
+
+.big-card h1 {
+    text-align: center;
+}
+
+.big-card .image-info {
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
+}
+
+.card-info {
+    flex-grow: 2;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    left: 0;
+
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.501);
+    z-index: 1;
+}
+
+/* --------------------------------------------------
+                More button
+-------------------------------------------------*/
+
+.more-button {
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.more-button .round-button {
+    border-radius: 50%;
 }

@@ -15,7 +15,7 @@ and interacr with our s3 cloud storage that amazon calls buckets
 */
 
 const s3 = new aws.S3({
-    accessKeyId: secrets.AWS_ID,
+    accessKeyId: secrets.AWS_KEY,
     secretAccessKey: secrets.AWS_SECRET,
 });
 
@@ -30,7 +30,7 @@ module.exports.upload = (req, res, next) => {
 
     const promise = s3
         .putObject({
-            Bucket: "spicedling",
+            Bucket: "imageboard-cy",
             ACL: "public-read",
             Key: filename,
             Body: fs.createReadStream(path),

@@ -4,45 +4,68 @@
     <meta charset="utf-8">
     <title>My Image Board</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Arima:wght@100;300;400;600&family=Fredericka+the+Great&family=Varela+Round&display=swap" rel="stylesheet">
+    <script src="https://use.fontawesome.com/3a2eaf6206.js"></script>
 </head>
 <body>
-    <header> I am the header </header>
+    <!-- <header> I am the header </header> -->
     
     <main>
-
-            <h1>Welcome to my board</h1>
 
     <!-- This container is for our Vue Instance -->
     <div id="main">
         <section class="uploadImg-section">
+            <h1 class="page-title">Welcome to my board</h1>
+
             <!-- action="/upload" method="post"  -->
             <form enctype="multipart/form-data" @submit.prevent()="handleSubmit" class="form-upload">
+
+
+                <div class="select-img">
+                <label for="inputTag"> 
+                <i class="fa fa-2x fa-camera"></i>
+                <br/> Select Image 
+                <input class="hidden" type="file" name="image" accept="image/*" ref="file" />
+                <br/>
+                <span id="imageName"></span>
+                </label>
+                </div>
+
+
+                <!-- <input type="file" name="image" accept="image/*" ref="file" /> -->
+
                 <input type="text" name="title" placeholder="Title" class="input-text" required />
                 <input type="text" name="user" placeholder="User" class="input-text" required />
-                <input type="file" name="image" accept="image/*" />
 
                 <button type="submit" class="add-button">+</button>
             </form>
+
+
         </section>
 
         <!--  -->
         <!-- v-bind:id-card="idCard" -->
         <big-card v-if="idCard" v-bind:id-card="idCard"></big-card>
-
+        <div class="overlay"  v-if="idCard"  @click="hidecard"></div>
+       
 
         <section v-if="cards.length" class="board-section">
-            <div v-for="card in cards"  v-bind:key="card.id"  class="card" @click="displaycard(card.id)">
+            <div v-for="card in cards"  v-bind:key="card.id"  class="small-card card" @click="displaycard(card.id)">
                     <!-- Bc the url is inside the tag we must bind    @click="display"-->
                 <img v-bind:src="card.url" :alt="card.title" v-bind:key="card.id" >
                 <div class="title"> <p>{{card.title}}</p> </div>
             </div>
         </section>
+
+        <div class="more-button">
+            <!-- Add button to see 6 more photo! form 6 upto 12-->
+            <button  class="add-button round-button">+</button>
+        </div>
     </div>
 
 
     </main>
     
-
 
     <footer>&copy; MGCzI</footer>
 
