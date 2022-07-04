@@ -3,7 +3,7 @@ import * as Vue from "./vue.js";
 import bigCard from "./big-card.js";
 
 // All vue code comes here
-const MAX_CARD = 6;
+const AMOUNT_PLUS_CARDS = 3;
 
 Vue.createApp({
     data() {
@@ -11,6 +11,8 @@ Vue.createApp({
             name: "Cayenne",
             cards: [],
             idCard: false,
+            onScreenImage: AMOUNT_PLUS_CARDS,
+            showMore: true,
         };
     }, //Data ends here
 
@@ -55,7 +57,7 @@ Vue.createApp({
                     this.$refs.file.value = null;
 
                     // Controlling how many image to show
-                    if (this.cards.length > MAX_CARD) {
+                    if (this.cards.length > this.onScreenImage) {
                         this.cards.pop();
                     }
 
@@ -72,6 +74,37 @@ Vue.createApp({
 
         hidecard() {
             this.idCard = false;
+        },
+
+        moreImage() {
+            let smallestId = this.cards[this.cards.length - 1].id;
+            this.onScreenImage += AMOUNT_PLUS_CARDS;
+            console.log("smallestId", smallestId);
+            console.log("this.onScreenImage", this.onScreenImage);
+            // better to do a fetch requets.
+
+            fetch(`/moreImage/${smallestId}`)
+                .then((resp) => resp.json())
+                .then((data) => {
+                    if (data.error) {
+                        // manage the error
+                    }
+
+                    console.log("I finish moreImage. Lets try to show");
+                    // I am updating my array
+
+                    this.cards.push(...data);
+                    // this.cards.flat();
+
+                    const lastImg = this.cards[this.cards.length - 1];
+                    lastImg.id === lastImg.lowestId
+                        ? (this.showMore = false)
+                        : (this.showMore = true);
+
+                    console.log("after conct this.cards", this.cards);
+                    console.log("this.cards.length", this.cards.length);
+                })
+                .catch(() => console.log("Error in /getCard"));
         },
     },
 }).mount("#main");

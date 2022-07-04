@@ -5,7 +5,7 @@
     <title>My Image Board</title>
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Arima:wght@100;300;400;600&family=Fredericka+the+Great&family=Varela+Round&display=swap" rel="stylesheet">
-    <script src="https://use.fontawesome.com/3a2eaf6206.js"></script>
+    <script src="https://kit.fontawesome.com/59beddc5f8.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- <header> I am the header </header> -->
@@ -20,7 +20,6 @@
             <!-- action="/upload" method="post"  -->
             <form enctype="multipart/form-data" @submit.prevent()="handleSubmit" class="form-upload">
 
-
                 <div class="select-img">
                 <label for="inputTag"> 
                 <i class="fa fa-2x fa-camera"></i>
@@ -34,8 +33,10 @@
 
                 <!-- <input type="file" name="image" accept="image/*" ref="file" /> -->
 
-                <input type="text" name="title" placeholder="Title" class="input-text" required />
-                <input type="text" name="user" placeholder="User" class="input-text" required />
+                <input type="text" name="title" placeholder="Title *" class="input-text" required />
+                <input type="text" name="user" placeholder="User *" class="input-text" required />
+                <input type="text" name="description" placeholder="description" class="input-text" />
+
 
                 <button type="submit" class="add-button">+</button>
             </form>
@@ -45,7 +46,7 @@
 
         <!--  -->
         <!-- v-bind:id-card="idCard" -->
-        <big-card v-if="idCard" v-bind:id-card="idCard"></big-card>
+        <big-card v-if="idCard" v-bind:id-card="idCard" @close="hidecard"></big-card>
         <div class="overlay"  v-if="idCard"  @click="hidecard"></div>
        
 
@@ -57,9 +58,9 @@
             </div>
         </section>
 
-        <div class="more-button">
+        <div v-if="showMore" class="more-button">
             <!-- Add button to see 6 more photo! form 6 upto 12-->
-            <button  class="add-button round-button">+</button>
+            <button  class="add-button round-button" @click="moreImage">+</button>
         </div>
     </div>
 

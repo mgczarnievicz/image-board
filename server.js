@@ -7,7 +7,12 @@ const uidSafe = require("uid-safe");
 const path = require("path");
 const s3 = require("./s3");
 
-const { getAllImages, saveImage, getCardById } = require("./db.js");
+const {
+    getAllImages,
+    saveImage,
+    getCardById,
+    getMoreImages,
+} = require("./db.js");
 
 app.use(express.static("./public"));
 
@@ -59,10 +64,8 @@ app.get("/board", (req, res) => {
 
 app.get("/getCard/:id", (req, res) => {
     console.log(
-        "-----------------------------------------------------------------------------"
+        `-----------------------------------------------------------------------------\n\t Get Card id: ${req.params.id}`
     );
-    console.log("/getCard route has been hits!");
-    console.log("req.params.id", req.params.id);
 
     getCardById(req.params.id)
         .then((result) => {
@@ -89,14 +92,31 @@ app.get("/getCard/:id", (req, res) => {
         .catch((err) => console.log("Error getCardByIs", err));
 });
 
+app.get("/moreImage/:lowestId", (req, res) => {
+    console.log(
+        `-----------------------------------------------------------------------------\n\t More Image`
+    );
+
+    console.log("req.params.lowestId:", req.params.lowestId);
+    getMoreImages(req.params.lowestId)
+        .then((result) => {
+            console.log("result.rows[]:", result.rows);
+            res.json(result.rows);
+        })
+        .catch((err) => console.log("Error getCardByIs", err));
+});
+
 // uploader.single("image") image is the name of the input filed.
 app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     console.log(
-        "-----------------------------------------------------------------------------"
+        `-----------------------------------------------------------------------------\n\t UpLoading Image`
     );
-    console.log("In upLoading");
 
-    const { title, user } = req.body;
+    /* NOTE: 
+    Upload the image in AWS and then, ones we know that is uploaded we save it in our date base
+     with the url to be able to display it later. */
+
+    const { title, user, description } = req.body;
     // If I use the other credentials
     // const url = `https://s3.amazonaws.com/spicedling/${req.file.filename}`;
     const url = `https://imageboard-cy.s3.eu-central-1.amazonaws.com/${req.file.filename}`;
@@ -105,9 +125,11 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
     // https://s3.amazonaws.com/:yourBucketName/:filename
     // https://:yourBucketName.s3.eu-central-1.amazonaws.com/:filename.
 
-    console.log(`\t title: ${title}\n\t user: ${user} \n\t url: ${url}`);
+    console.log(
+        `\t title: ${title}\n\t user: ${user} \n\t description ${description} \n\t url: ${url}`
+    );
 
-    saveImage(url, user, title)
+    saveImage(url, user, title, description)
         .then((result) => {
             console.log("result.rows[0]", result.rows[0]);
             res.json({
@@ -124,6 +146,6 @@ app.get("*", (req, res) => {
 
 app.listen(PORT, () =>
     console.log(
-        `\t Server is lisening on port ${PORT}\n\t http://localhost:${PORT}/\n`
+        `\t Server is listening on port ${PORT}\n\t http://localhost:${PORT}/\n`
     )
 );
