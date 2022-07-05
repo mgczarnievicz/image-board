@@ -41,7 +41,7 @@ exports.getAllImages = () => {
 
 exports.getMoreImages = (id) => {
     return db.query(
-        `SELECT id, title, url (
+        `SELECT id, title, url, (
             SELECT id FROM images
             ORDER BY id ASC
             LIMIT 1

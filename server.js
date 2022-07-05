@@ -73,7 +73,7 @@ app.get("/getCard/:id", (req, res) => {
 
     getCardById(req.params.id)
         .then((result) => {
-            let imageCard = [];
+            let imageCard;
 
             if (result.rows.length != 0) {
                 imageCard = result.rows[0];
@@ -82,7 +82,7 @@ app.get("/getCard/:id", (req, res) => {
                     result.rows[0].created_at.toLocaleString("en-GB");
             }
 
-            res.json(imageCard);
+            res.json({ img: imageCard });
         })
         .catch((err) => console.log("Error getCardByIs", err));
 });

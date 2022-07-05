@@ -20,7 +20,7 @@ const bigCard = {
             .then((resp) => resp.json())
             .then((data) => {
                 console.log("data in big img mounted", data);
-                this.card = data;
+                data.img ? (this.card = data.img) : this.$emit("close");
             })
             .catch(() => console.log("Error in /getCard"));
     },
@@ -37,19 +37,27 @@ const bigCard = {
                 
 
                     <div class="popup-content">   
-                    
-                    <div class="big-card card">
-                        <img v-bind:src="card.url" :alt="card.title" v-bind:key="card.id" class="big-img">
-                        <div class="card-info"> 
-                            <h1>{{card.title}}</h1>
-                            <p class= "image-description"> {{card.description}} </p> 
-                            <p class="image-info">Uploaded by {{card.username}} on {{card.created_at}}</p> 
+
+                        <div>
+                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
                         </div>
-                    </div>
-                       
-                    <comments-modal v-bind:card-id-for-comment="cardId" ></comments-modal>
-                    
-                    
+
+                        <div class="big-card card">
+                            <img v-bind:src="card.url" :alt="card.title" v-bind:key="card.id" class="big-img">
+                            <div class="card-info"> 
+                                <h1>{{card.title}}</h1>
+                                <p class= "image-description"> {{card.description}} </p> 
+                                <p class="image-info">Uploaded by {{card.username}} on {{card.created_at}}</p> 
+                            </div>
+                        </div>
+                        
+                        <comments-modal v-bind:card-id-for-comment="cardId" ></comments-modal>
+                        
+                        <div>
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </div>
+
+                        
                     </div>
 
             </div>`,
