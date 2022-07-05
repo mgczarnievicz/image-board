@@ -36,6 +36,21 @@ Vue.createApp({
             }
         }
 
+        window.addEventListener("popstate", () => {
+            let path = location.pathname.slice(1);
+            console.log("path Event Listener received", path);
+            if (path != "") {
+                path = Number.parseInt(path);
+                console.log("Path Event Listener  after parseInt", path);
+                if (Number.isNaN(path)) {
+                    history.replaceState({}, "", "/");
+                } else {
+                    this.idCard = path;
+                }
+            } else {
+                this.idCard = false;
+            }
+        });
         /* 
         I can se here if i have a number or not.
 
@@ -125,6 +140,14 @@ Vue.createApp({
                     console.log("this.cards.length", this.cards.length);
                 })
                 .catch(() => console.log("Error in /getCard"));
+        },
+
+        update(newId) {
+            console.log("I am in Updating:", newId);
+            this.idCard = newId;
+            history.pushState({}, "", `/${this.idCard}`);
+
+            // new function for update image
         },
     },
 }).mount("#main");

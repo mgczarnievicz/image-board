@@ -46,7 +46,7 @@
 
         <!--  -->
         <!-- v-bind:id-card="idCard" -->
-        <big-card v-if="idCard" v-bind:card-id="idCard" @close="hidecard"></big-card>
+        <big-card v-if="idCard" v-bind:card-id="idCard" @close="hidecard" @update="update"></big-card>
         <div class="overlay"  v-if="idCard"  @click="hidecard"></div>
        
 

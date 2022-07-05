@@ -77,7 +77,7 @@ app.get("/getCard/:id", (req, res) => {
 
             if (result.rows.length != 0) {
                 imageCard = result.rows[0];
-                console.log("result.rows", result.rows[0]);
+                console.log("result.rows", result.rows);
                 imageCard.created_at =
                     result.rows[0].created_at.toLocaleString("en-GB");
             }

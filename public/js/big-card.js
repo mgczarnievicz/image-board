@@ -4,6 +4,8 @@ const bigCard = {
     data() {
         return {
             card: {},
+            next: false,
+            previous: false,
         };
     },
     props: ["cardId"],
@@ -12,8 +14,26 @@ const bigCard = {
         "comments-modal": commentsModal,
     },
 
+    watch: {
+        cardId: function () {
+            console.log("CardId was update!!!! I am listen to u!", this.cardId);
+            fetch(`/getCard/${this.cardId}`)
+                .then((resp) => resp.json())
+                .then((data) => {
+                    console.log("data in big img mounted", data);
+                    data.img ? (this.card = data.img) : this.$emit("close");
+
+                    this.next = false || this.card.nextId;
+                    this.previous = false || this.card.previousId;
+                    console.log(
+                        `this.next ${this.next}, this.previous: ${this.previous}`
+                    );
+                })
+                .catch(() => console.log("Error in /getCard"));
+        },
+    },
+
     mounted() {
-        // aca tengo que leer la base de datos!
         console.log("cardId in Big-Card", this.cardId);
 
         fetch(`/getCard/${this.cardId}`)
@@ -21,6 +41,12 @@ const bigCard = {
             .then((data) => {
                 console.log("data in big img mounted", data);
                 data.img ? (this.card = data.img) : this.$emit("close");
+
+                this.next = false || this.card.nextId;
+                this.previous = false || this.card.previousId;
+                console.log(
+                    `this.next ${this.next}, this.previous: ${this.previous}`
+                );
             })
             .catch(() => console.log("Error in /getCard"));
     },
@@ -30,6 +56,21 @@ const bigCard = {
             // Telling the parent to close the big card
             this.$emit("close");
         },
+
+        /* 
+        nextId: 4
+        previousId: 1
+        */
+        nextCard() {
+            // console.log("this.data", this.card);
+            console.log("Next Image:", this.card.nextId);
+            this.$emit("update", this.card.nextId);
+        },
+
+        previousCard() {
+            console.log("Previous Image:", this.card.previousId);
+            this.$emit("update", this.card.previousId);
+        },
     },
     //  new Date({{card.created_at}}) <font-awesome-icon icon="fa-solid fa-xmark" />
     template: `<div class="popup-card card">
@@ -38,7 +79,7 @@ const bigCard = {
 
                     <div class="popup-content">   
 
-                        <div>
+                        <div v-if="previous" class="arrow"  @click="previousCard">
                             <i class="fa fa-chevron-left" aria-hidden="true"></i>
                         </div>
 
@@ -53,7 +94,7 @@ const bigCard = {
                         
                         <comments-modal v-bind:card-id-for-comment="cardId" ></comments-modal>
                         
-                        <div>
+                        <div v-if="next" class="arrow"  @click="nextCard" >
                             <i class="fa fa-chevron-right" aria-hidden="true"></i>
                         </div>
 
