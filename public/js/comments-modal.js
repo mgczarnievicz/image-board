@@ -10,6 +10,22 @@ const commentsModal = {
 
     props: ["cardIdForComment"],
 
+    watch: {
+        cardIdForComment: function () {
+            console.log(
+                "cardIdForComment was update!!!! I am listen to u!",
+                this.cardIdForComment
+            );
+            fetch(`/getComments/${this.cardIdForComment}`)
+                .then((resp) => resp.json())
+                .then((data) => {
+                    console.log("Response form /getComments:", data);
+                    this.oldComments = data;
+                })
+                .catch(() => console.log("Error in /getComments"));
+        },
+    },
+
     mounted() {
         console.log("First component mounted");
         console.log("this.cardIdForComment", this.cardIdForComment);
@@ -19,7 +35,8 @@ const commentsModal = {
             .then((data) => {
                 console.log("Response form /getComments:", data);
                 this.oldComments = data;
-            });
+            })
+            .catch(() => console.log("Error in /getComments"));
     },
 
     methods: {
