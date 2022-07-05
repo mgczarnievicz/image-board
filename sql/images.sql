@@ -1,5 +1,6 @@
-DROP TABLE IF EXISTS images;
 DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS images;
+
 
 
 CREATE TABLE images(
@@ -34,21 +35,17 @@ INSERT INTO images (url, username, title, description) VALUES (
 );
 
 INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/imageboard/XCv4AwJdm6QuzjenFPKJocpipRNNMwze.jpg',
+    'https://imageboard-cy.s3.eu-central-1.amazonaws.com/YdS21TQYpHjptDXAoo-vjYS2Eg5Ndchy.jpg',
     'discoduck',
-    'To be or not to be',
-    'That is the question.'
+    'Micky & Friend in the beach',
+    'We wish to be there.'
 );
 
 
+INSERT INTO images (url, username, title, description) VALUES (
+    'https://imageboard-cy.s3.eu-central-1.amazonaws.com/Gi0BrFCVhSHM7r7pSY_Zkh93zRmYr6CS.jpg',
+    'discoduck',
+    'Peter Pan & Friends',
+    'Clasic Book & Movie.'
+);
 
--- 
--- https://www.tradeinn.com/f/13779/137798322/clementoni-disney-winnie-the-pooh-my-first-puzzle-3-6-9-12-pieces.jpg
-
--- https://www.seekpng.com/png/detail/576-5767525_micky-maus-disney-mickey-mouse.png
-
--- https://www.gratistodo.com/wp-content/uploads/2016/12/Pato-Donald-1.gif
-
--- https://akns-images.eonline.com/eol_images/Entire_Site/2018616/rs_600x600-180716134424-600-rugrats-ch-071618.jpg?fit=around%7C700:700&output-quality=90&crop=700:700;center,top
-
--- https://imagenpng.com/wp-content/uploads/2019/06/4oye-arnold.jpg
