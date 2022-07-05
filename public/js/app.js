@@ -24,10 +24,21 @@ Vue.createApp({
     mounted() {
         // This will be automatic display when the app is shows.
         console.log("I will run the first time the up is uploaded!");
-        // location.pathname.slice(1);
+        let path = location.pathname.slice(1);
+        console.log("path received", path);
+        if (path != "") {
+            path = Number.parseInt(path);
+            console.log("Path after parseInt", path);
+            if (Number.isNaN(path)) {
+                history.replaceState({}, "", "/");
+            } else {
+                this.idCard = path;
+            }
+        }
+
         /* 
         I can se here if i have a number or not.
-        
+
         */
 
         fetch("/board")
@@ -61,7 +72,12 @@ Vue.createApp({
 
                     // I am updating my array
                     this.cards.unshift(data.image);
+
+                    // Clean the input files
                     this.$refs.file.value = null;
+                    this.$refs.title.value = null;
+                    this.$refs.user.value = null;
+                    this.$refs.description.value = null;
 
                     // Controlling how many image to show
                     if (this.cards.length > this.onScreenImage) {
@@ -74,10 +90,12 @@ Vue.createApp({
         displaycard(id) {
             console.log("I am clicking in card:", id);
             this.idCard = id;
+            history.pushState({}, "", `/${this.idCard}`);
         },
 
         hidecard() {
             this.idCard = false;
+            history.pushState({}, "", `/`);
         },
 
         moreImage() {

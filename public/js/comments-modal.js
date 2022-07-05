@@ -47,6 +47,10 @@ const commentsModal = {
                     if (data.error) {
                         // manage the error
                     }
+                    // I clean the Inputs
+                    this.user = "";
+                    this.comment = "";
+
                     console.log("data addComment", data);
                     // we must push to the array
                     this.oldComments.push(...data);
