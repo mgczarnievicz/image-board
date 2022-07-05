@@ -18,7 +18,7 @@
             <h1 class="page-title">Welcome to my board</h1>
 
             <!-- action="/upload" method="post"  -->
-            <form enctype="multipart/form-data" @submit.prevent()="handleSubmit" class="form-upload">
+            <form enctype="multipart/form-data" @submit.prevent()="handleSubmit" class="form-upload form">
 
                 <div class="select-img">
                 <label for="inputTag"> 
@@ -38,7 +38,7 @@
                 <input type="text" name="description" placeholder="description" class="input-text" />
 
 
-                <button type="submit" class="add-button">+</button>
+                <button type="submit" class="add-button form-button">+</button>
             </form>
 
 
@@ -46,7 +46,7 @@
 
         <!--  -->
         <!-- v-bind:id-card="idCard" -->
-        <big-card v-if="idCard" v-bind:id-card="idCard" @close="hidecard"></big-card>
+        <big-card v-if="idCard" v-bind:card-id="idCard" @close="hidecard"></big-card>
         <div class="overlay"  v-if="idCard"  @click="hidecard"></div>
        
 

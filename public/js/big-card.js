@@ -1,22 +1,25 @@
+import commentsModal from "./comments-modal.js";
+
 const bigCard = {
     data() {
         return {
             card: {},
         };
     },
-    props: ["idCard"],
+    props: ["cardId"],
+
+    components: {
+        "comments-modal": commentsModal,
+    },
 
     mounted() {
         // aca tengo que leer la base de datos!
-        console.log("First component mounted");
-        console.log("this.idCard", this.idCard);
+        console.log("cardId in Big-Card", this.cardId);
 
-        fetch(`/getCard/${this.idCard}`)
+        fetch(`/getCard/${this.cardId}`)
             .then((resp) => resp.json())
             .then((data) => {
-                console.log("Response form /getCard:", data);
                 this.card = data;
-                console.log("this.cards", this.card);
             })
             .catch(() => console.log("Error in /getCard"));
     },
@@ -31,6 +34,9 @@ const bigCard = {
     template: `<div class="popup-card card">
                     <i class="fa-solid fa-xmark close-icon" @click="closeBigCard"></i>
                 
+
+                    <div class="popup-content">   
+                    
                     <div class="big-card card">
                         <img v-bind:src="card.url" :alt="card.title" v-bind:key="card.id" class="big-img">
                         <div class="card-info"> 
@@ -40,7 +46,11 @@ const bigCard = {
                         </div>
                     </div>
                        
-                    <comments-section></comments-section>
+                    <comments-modal v-bind:card-id-for-comment="cardId" ></comments-modal>
+                    
+                    
+                    </div>
+
             </div>`,
 };
 

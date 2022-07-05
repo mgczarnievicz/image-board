@@ -14,10 +14,6 @@
 }
 
 * {
-    /* background-color: aquamarine; */
-    /* background-color: var(--color-light); */
-
-    /* font-family: Arial, Helvetica, sans-serif; */
     font-family: "Arima", cursive;
     box-sizing: border-box;
     padding: 0;
@@ -36,12 +32,6 @@ body {
     justify-content: center;
 }
 
-/* header {
-    height: 40px;
-    width: 100%;
-    background-color: var(--color-dark);
-} */
-
 main {
     width: 100%;
     flex-grow: 1;
@@ -58,6 +48,7 @@ footer {
     padding: 0.5%;
     text-align: center;
 }
+
 h1 {
     margin: 10px;
 }
@@ -75,7 +66,37 @@ h1 {
 }
 
 /* --------------------------------------------------
-                Form Section
+                    Form 
+-------------------------------------------------*/
+.form .input-text {
+    height: 27px;
+    padding: 3px;
+
+    border: none;
+    border-bottom: 2px solid var(--color-board);
+    background-color: var(--color-light);
+
+    margin: 7px;
+}
+
+.form-button {
+    height: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+    border: none;
+    /* border: 2px solid var(--color-light); */
+    background-color: var(--color-board);
+    color: var(--color-light);
+    cursor: pointer;
+}
+
+button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.513),
+        0 17px 50px 0 rgba(0, 0, 0, 0.409);
+}
+
+/* --------------------------------------------------
+                uploadImg Section
 -------------------------------------------------*/
 
 .uploadImg-section {
@@ -108,36 +129,12 @@ label {
     margin-right: 10px;
 }
 
-.form-upload .input-text {
-    height: 27px;
-    padding: 3px;
-
-    border: none;
-    border-bottom: 2px solid var(--color-board);
-    background-color: var(--color-light);
-
-    margin: 7px;
-}
-
 .form-upload .add-button {
     margin-left: 10px;
 }
 
 .add-button {
     width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    font-size: 20px;
-    border: none;
-    /* border: 2px solid var(--color-light); */
-    background-color: var(--color-board);
-    color: var(--color-light);
-    cursor: pointer;
-}
-
-.add-button:hover {
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.513),
-        0 17px 50px 0 rgba(0, 0, 0, 0.409);
 }
 
 /* --------------------------------------------------
@@ -150,7 +147,6 @@ label {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /* justify-content: space-around; */
     align-content: space-around;
     justify-content: flex-start;
 }
@@ -200,19 +196,32 @@ label {
 }
 
 /* --------------------------------------------------
+                More button
+-------------------------------------------------*/
+
+.more-button {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0px;
+    padding: 10px;
+}
+
+.more-button .round-button {
+    border-radius: 50%;
+}
+
+/* --------------------------------------------------
                 pop up Card
 -------------------------------------------------*/
 
 .popup-card {
-    width: 75%;
-    min-height: 700px;
+    width: 80%;
 
     padding: 10px;
     position: absolute;
 
-    margin: 10px auto;
+    margin: 1% 10%;
     z-index: 2;
-    /* border: 1px solid black;*/
 
     background-color: white;
 }
@@ -224,30 +233,44 @@ label {
 }
 
 /* --------------------------------------------------
+                Popup Content
+-------------------------------------------------*/
+
+.popup-content {
+    width: 100%;
+    /* height: 100%; */
+
+    display: flex;
+    flex-direction: row;
+}
+
+.image-info {
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
+}
+
+/* --------------------------------------------------
                 Big Card
 -------------------------------------------------*/
 
 .big-card {
-    width: 900px;
-    height: 600px;
+    /* width: 900px;
+    height: 600px; */
+
+    width: 60%;
+    /* height: 600px; */
     margin: 10px;
-    z-index: 2;
-    /* box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.409); */
 }
 
 .big-card h1 {
     text-align: center;
+    margin-bottom: 0px;
 }
 
 .big-card .image-description {
     text-align: center;
     font-size: 20px;
-}
-
-.big-card .image-info {
-    font-size: 12px;
-    font-style: italic;
-    text-align: center;
 }
 
 .card-info {
@@ -267,16 +290,87 @@ label {
 }
 
 /* --------------------------------------------------
-                More button
+                Comment
 -------------------------------------------------*/
+.comment-section {
+    width: 40%;
+    margin: 10px;
+}
 
-.more-button {
+.old-comments {
+    height: 49%;
+    overflow-y: scroll;
+}
+
+.old-comments .image-info {
+    text-align: left;
+}
+
+.old-comments .comment-card {
+    margin: 15px 0px;
+}
+
+.form-comment {
     width: 100%;
-    text-align: center;
-    margin: 20px 0px;
-    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10px;
+    border: 2px solid var(--color-board);
 }
 
-.more-button .round-button {
-    border-radius: 50%;
+.form-comment button {
+    width: 100px;
+    margin: 10px;
 }
+
+.form-comment textarea {
+    width: 100%;
+    padding: 5px;
+    border: none;
+}
+.form-comment .input-text {
+    width: 100%;
+    background-color: white;
+}
+
+@media screen and (min-width: 1280px) {
+    .popup-card {
+        width: 90%;
+        margin: 1% 5%;
+    }
+
+    /* .popup-content {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+    } */
+    /* 
+    .big-card {
+        width: 60%;
+    } */
+    .comment-section {
+        /* width: 40%; */
+        height: 620px;
+    }
+    /* .old-comments { */
+    /* max-height: 200px; */
+    /* height: 49%;
+    } */
+    .form-comment {
+        width: 98%;
+    }
+}
+
+/* 
+NOTE: 
+-clean input after submit!
+-date in comments!
+-big screens see arrange the display!
+
+
+
+*/

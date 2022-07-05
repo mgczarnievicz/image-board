@@ -24,12 +24,22 @@ Vue.createApp({
     mounted() {
         // This will be automatic display when the app is shows.
         console.log("I will run the first time the up is uploaded!");
+        // location.pathname.slice(1);
+        /* 
+        I can se here if i have a number or not.
+        
+        */
 
         fetch("/board")
             .then((resp) => resp.json())
             .then((data) => {
                 console.log("Response form /board:", data);
                 this.cards = data;
+
+                const lastImg = this.cards[this.cards.length - 1];
+                lastImg.id === lastImg.lowestId
+                    ? (this.showMore = false)
+                    : (this.showMore = true);
             });
     },
 
@@ -39,7 +49,6 @@ Vue.createApp({
         handleSubmit(e) {
             // We can put it here or in the html
             e.preventDefault();
-            console.log("I am handling the submit");
             fetch("/upload", {
                 method: "POST",
                 body: new FormData(e.target),
@@ -50,19 +59,14 @@ Vue.createApp({
                         // manage the error
                     }
 
-                    console.log("I finish uploading. Lets try to show");
                     // I am updating my array
                     this.cards.unshift(data.image);
-
                     this.$refs.file.value = null;
 
                     // Controlling how many image to show
                     if (this.cards.length > this.onScreenImage) {
                         this.cards.pop();
                     }
-
-                    console.log(data.image);
-                    console.log("this.cards.length", this.cards.length);
                 })
                 .catch();
         },
@@ -90,9 +94,7 @@ Vue.createApp({
                         // manage the error
                     }
 
-                    console.log("I finish moreImage. Lets try to show");
                     // I am updating my array
-
                     this.cards.push(...data);
                     // this.cards.flat();
 
@@ -101,7 +103,7 @@ Vue.createApp({
                         ? (this.showMore = false)
                         : (this.showMore = true);
 
-                    console.log("after conct this.cards", this.cards);
+                    console.log("after displaying more this.cards", this.cards);
                     console.log("this.cards.length", this.cards.length);
                 })
                 .catch(() => console.log("Error in /getCard"));

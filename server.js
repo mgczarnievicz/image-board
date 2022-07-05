@@ -12,6 +12,8 @@ const {
     saveImage,
     getCardById,
     getMoreImages,
+    saveComment,
+    getCommentByCardId,
 } = require("./db.js");
 
 app.use(express.static("./public"));
@@ -52,7 +54,9 @@ app.use((req, res, next) => {
 });
 //
 
-// app.use(express.multipartFormData());
+/* -------------------------------------------------------
+                        GET
+--------------------------------------------------------*/
 
 app.get("/board", (req, res) => {
     console.log("/board route has been hits!");
@@ -71,19 +75,19 @@ app.get("/getCard/:id", (req, res) => {
         .then((result) => {
             const imageCard = result.rows[0];
             console.log("result.rows", result.rows[0]);
-            const option = {
-                day: "2-digit",
-                month: "2-digit",
-                year: "long",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-            };
+            // const option = {
+            //     day: "2-digit",
+            //     month: "2-digit",
+            //     year: "long",
+            //     hour: "2-digit",
+            //     minute: "2-digit",
+            //     second: "2-digit",
+            // };
             // toLocaleDateString
-            console.log(
-                "Date nice:",
-                result.rows[0].created_at.toLocaleString("en-GB")
-            );
+            // console.log(
+            //     "Date nice:",
+            //     result.rows[0].created_at.toLocaleString("en-GB")
+            // );
             imageCard.created_at =
                 result.rows[0].created_at.toLocaleString("en-GB");
 
@@ -101,6 +105,59 @@ app.get("/moreImage/:lowestId", (req, res) => {
     getMoreImages(req.params.lowestId)
         .then((result) => {
             console.log("result.rows[]:", result.rows);
+            res.json(result.rows);
+        })
+        .catch((err) => console.log("Error getCardByIs", err));
+});
+
+app.get("/getComments/:cardId", (req, res) => {
+    getCommentByCardId(req.params.cardId)
+        .then((result) => {
+            console.log(
+                `-----------------------------------------------------------------------------\n\t Get Comment Id: ${req.params.cardId}`
+            );
+            console.log("Result.rows", result.rows);
+
+            result.rows.map(
+                (each) =>
+                    (each.created_at = each.created_at.toLocaleString("en-GB"))
+            );
+            console.log("Seeing the comments to send", result.rows);
+            res.json(result.rows);
+        })
+        .catch((err) => err);
+
+    // console.log(
+    //     "Date nice:",
+    //     result.rows[0].created_at.toLocaleString("en-GB")
+    // );
+});
+
+app.get("*", (req, res) => {
+    res.sendFile(`${__dirname}/index.html`);
+});
+
+/* -------------------------------------------------------
+                        POST
+--------------------------------------------------------*/
+
+app.post("/addComment", (req, res) => {
+    console.log(
+        `-----------------------------------------------------------------------------\n\t Adding Comments`
+    );
+    console.log("req.body", req.body);
+    const { user, comment, cardId } = req.body;
+
+    // Add Comments
+    saveComment(cardId, user, comment)
+        .then((result) => {
+            console.log("result.rows[]:", result.rows);
+
+            result.rows.map(
+                (each) =>
+                    (each.created_at = each.created_at.toLocaleString("en-GB"))
+            );
+
             res.json(result.rows);
         })
         .catch((err) => console.log("Error getCardByIs", err));
@@ -138,10 +195,6 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
             });
         })
         .catch((err) => console.log("err db", er));
-});
-
-app.get("*", (req, res) => {
-    res.sendFile(`${__dirname}/index.html`);
 });
 
 app.listen(PORT, () =>

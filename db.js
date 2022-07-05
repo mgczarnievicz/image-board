@@ -28,14 +28,20 @@ const db = spicedPg(
 ----------------------------------------------------------------*/
 
 exports.getAllImages = () => {
-    return db.query(`SELECT * FROM images ORDER BY id DESC LIMIT $1`, [
-        LIMIT_CARDS,
-    ]);
+    return db.query(
+        `SELECT id, title, url ,  (
+            SELECT id FROM images
+            ORDER BY id ASC
+            LIMIT 1
+            )AS "lowestId"
+            FROM images ORDER BY id DESC LIMIT $1`,
+        [LIMIT_CARDS]
+    );
 };
 
 exports.getMoreImages = (id) => {
     return db.query(
-        `SELECT url, title, id, (
+        `SELECT id, title, url (
             SELECT id FROM images
             ORDER BY id ASC
             LIMIT 1
@@ -64,3 +70,19 @@ exports.saveImage = (url, username, title, description) => {
 /* ---------------------------------------------------------------
                     Comments TABLE
 ----------------------------------------------------------------*/
+
+exports.getCommentByCardId = (id_image) => {
+    return db.query(
+        `SELECT * FROM comments 
+        WHERE id_image = $1`,
+        [id_image]
+    );
+};
+
+exports.saveComment = (id_image, username, comment) => {
+    return db.query(
+        `INSERT INTO comments (id_image, username, comment)
+        VALUES ($1, $2, $3) RETURNING *`,
+        [id_image, username, comment]
+    );
+};
