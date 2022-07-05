@@ -302,7 +302,8 @@ label {
 }
 
 .old-comments {
-    height: 49%;
+    height: 100px;
+    flex-grow: 2;
     overflow-y: scroll;
 }
 
@@ -349,23 +350,10 @@ label {
         margin: 1% 5%;
     }
 
-    /* .popup-content {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-    } */
-    /* 
-    .big-card {
-        width: 60%;
-    } */
-    .comment-section {
-        /* width: 40%; */
+    /* .comment-section {
         height: 620px;
-    }
-    /* .old-comments { */
-    /* max-height: 200px; */
-    /* height: 49%;
     } */
+
     .form-comment {
         width: 98%;
     }

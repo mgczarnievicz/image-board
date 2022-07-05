@@ -73,23 +73,14 @@ app.get("/getCard/:id", (req, res) => {
 
     getCardById(req.params.id)
         .then((result) => {
-            const imageCard = result.rows[0];
-            console.log("result.rows", result.rows[0]);
-            // const option = {
-            //     day: "2-digit",
-            //     month: "2-digit",
-            //     year: "long",
-            //     hour: "2-digit",
-            //     minute: "2-digit",
-            //     second: "2-digit",
-            // };
-            // toLocaleDateString
-            // console.log(
-            //     "Date nice:",
-            //     result.rows[0].created_at.toLocaleString("en-GB")
-            // );
-            imageCard.created_at =
-                result.rows[0].created_at.toLocaleString("en-GB");
+            let imageCard = [];
+
+            if (result.rows.length != 0) {
+                imageCard = result.rows[0];
+                console.log("result.rows", result.rows[0]);
+                imageCard.created_at =
+                    result.rows[0].created_at.toLocaleString("en-GB");
+            }
 
             res.json(imageCard);
         })

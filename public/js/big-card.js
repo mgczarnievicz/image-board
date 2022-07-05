@@ -19,6 +19,7 @@ const bigCard = {
         fetch(`/getCard/${this.cardId}`)
             .then((resp) => resp.json())
             .then((data) => {
+                console.log("data in big img mounted", data);
                 this.card = data;
             })
             .catch(() => console.log("Error in /getCard"));
