@@ -20,23 +20,17 @@ CREATE TABLE comments(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/imageboard/jAVZmnxnZ-U95ap2-PLliFFF7TO0KqZm.jpg',
-    'funkychicken',
-    'Welcome to Spiced and the Future!',
-    'This photo brings back so many great memories.'
-);
 
 INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/imageboard/wg8d94G_HrWdq7bU_2wT6Y6F3zrX-kej.jpg',
-    'discoduck',
-    'Elvis',
-    'We can''t go on together with suspicious minds.'
+    ' https://imageboard-cy.s3.eu-central-1.amazonaws.com/9phnWKN547FnGno8jVlUCJ7Dql_FQJfa.jpg ',
+    'Gofy',
+    'Pluto',
+    'I hear everything, be aware!'
 );
 
 INSERT INTO images (url, username, title, description) VALUES (
     'https://imageboard-cy.s3.eu-central-1.amazonaws.com/YdS21TQYpHjptDXAoo-vjYS2Eg5Ndchy.jpg',
-    'discoduck',
+    'Disney',
     'Micky & Friend in the beach',
     'We wish to be there.'
 );
@@ -44,7 +38,7 @@ INSERT INTO images (url, username, title, description) VALUES (
 
 INSERT INTO images (url, username, title, description) VALUES (
     'https://imageboard-cy.s3.eu-central-1.amazonaws.com/Gi0BrFCVhSHM7r7pSY_Zkh93zRmYr6CS.jpg',
-    'discoduck',
+    'Disney',
     'Peter Pan & Friends',
     'Clasic Book & Movie.'
 );

@@ -70,8 +70,6 @@ Vue.createApp({
     },
 
     methods: {
-        //this is where we define all of OUR functions
-
         handleSubmit(e) {
             // We can put it here or in the html
             e.preventDefault();
@@ -98,6 +96,14 @@ Vue.createApp({
                     if (this.cards.length > this.onScreenImage) {
                         this.cards.pop();
                     }
+
+                    // Update the button
+                    const lastImg = this.cards[this.cards.length - 1];
+                    lastImg.id === lastImg.lowestId
+                        ? (this.showMore = false)
+                        : (this.showMore = true);
+                    console.log("This cards after updating it", this.cards);
+                    console.log("this.showMore", this.showMore);
                 })
                 .catch();
         },

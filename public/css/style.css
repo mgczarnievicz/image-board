@@ -8,9 +8,13 @@
     /* --color-board: #94b49f; */
 
     /* FFEDDB */
-    --color-dark: #ad6989;
+    /* --color-dark: #ad6989;
     --color-light: #ffeddb;
-    --color-board: #562349;
+    --color-board: #562349; */
+
+    --color-dark: #205375;
+    --color-light: #ffeddb;
+    --color-board: #112b3c;
 }
 
 * {
@@ -84,7 +88,7 @@ h1 {
     border-radius: 10px;
     font-size: 20px;
     border: none;
-    background-color: var(--color-board);
+    background-color: var(--color-dark);
     color: var(--color-light);
     cursor: pointer;
 }
@@ -106,6 +110,7 @@ button:hover {
 .uploadImg-section h1 {
     font-family: "Fredericka the Great", cursive;
     font-size: 72px;
+    color: var(--color-dark);
 }
 
 .hidden {
@@ -350,22 +355,10 @@ label {
     width: 40px;
     text-align: center;
     border-radius: 12px;
-    /* background: rgb(255, 255, 255);
-    background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(231, 227, 227, 1) 50%,
-        rgba(254, 254, 254, 0) 100%
-    ); */
 
-    /* background: rgb(255, 255, 255);
-    background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(231, 227, 227, 1) 50%,
-        rgba(254, 254, 254, 0) 100%
-    ); */
-    /* background-color: gainsboro; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .popup-content .arrow:hover {
@@ -378,10 +371,6 @@ label {
         width: 90%;
         margin: 1% 5%;
     }
-
-    /* .comment-section {
-        height: 620px;
-    } */
 
     .form-comment {
         width: 98%;
