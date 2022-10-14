@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
     },
     filename(req, file, callback) {
         // const randomFileName =
-        //  how to keep the extention
+        //  how to keep the extension
         uidSafe(24).then((randomString) => {
             callback(null, `${randomString}${path.extname(file.originalname)}`);
         });
@@ -117,11 +117,6 @@ app.get("/getComments/:cardId", (req, res) => {
             res.json(result.rows);
         })
         .catch((err) => err);
-
-    // console.log(
-    //     "Date nice:",
-    //     result.rows[0].created_at.toLocaleString("en-GB")
-    // );
 });
 
 app.get("*", (req, res) => {

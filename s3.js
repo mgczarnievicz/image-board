@@ -9,9 +9,9 @@ if (process.env.NODE_ENV == "production") {
     secrets = require("./secrets.json");
 }
 
-/*  Create an intance of an AWS user. (is just an object)
+/*  Create an instance of an AWS user. (is just an object)
 That give us a bunch of methods to communication 
-and interacr with our s3 cloud storage that amazon calls buckets
+and interact with our s3 cloud storage that amazon calls buckets
 */
 
 const s3 = new aws.S3({

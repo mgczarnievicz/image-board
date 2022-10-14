@@ -5,28 +5,16 @@ let USER_NAME, USER_PASSWORD;
 const LIMIT_CARDS = 3;
 const database = "imageboard";
 
-// if (!process.env.DATABASE_URL) {
-//     // Bc we are deploying we need to define where to get the value.
-//     USER_NAME = require("./secrets").USER_NAME;
-//     USER_PASSWORD = require("./secrets").USER_PASSWORD;
-// }
-
-// const db = spicedPg(
-//     process.env.DATABASE_URL ||
-//         `postgres:${USER_NAME}:${USER_PASSWORD}@localhost:5432/${database}`
-// );
+if (!process.env.DATABASE_URL) {
+    // Bc we are deploying we need to define where to get the value.
+    USER_NAME = require("./secrets").USER_NAME;
+    USER_PASSWORD = require("./secrets").USER_PASSWORD;
+}
 
 const db = spicedPg(
     process.env.DATABASE_URL ||
-        `postgres:postgres:1234@localhost:5432/${database}`
+        `postgres:${USER_NAME}:${USER_PASSWORD}@localhost:5432/${database}`
 );
-
-// REVIEW. change Fetch first to Limit
-// exports.getAllImages = () => {
-//     return db.query(
-//         `SELECT * FROM images ORDER BY id DESC FETCH FIRST 6 ROWS ONLY`
-//     );
-// };
 
 /* ---------------------------------------------------------------
                     images TABLE
@@ -78,10 +66,6 @@ exports.getCardById = (id) => {
         [id]
     );
 };
-
-// exports.getCardById = (id) => {
-//     return db.query(`SELECT * FROM images WHERE id = $1`, [id]);
-// };
 
 exports.saveImage = (url, username, title, description) => {
     return db.query(
