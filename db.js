@@ -5,15 +5,20 @@ let USER_NAME, USER_PASSWORD;
 const LIMIT_CARDS = 3;
 const database = "imageboard";
 
-if (!process.env.DATABASE_URL) {
-    // Bc we are deploding we need to define where to get the value.
-    USER_NAME = require("./secrets").USER_NAME;
-    USER_PASSWORD = require("./secrets").USER_PASSWORD;
-}
+// if (!process.env.DATABASE_URL) {
+//     // Bc we are deploying we need to define where to get the value.
+//     USER_NAME = require("./secrets").USER_NAME;
+//     USER_PASSWORD = require("./secrets").USER_PASSWORD;
+// }
+
+// const db = spicedPg(
+//     process.env.DATABASE_URL ||
+//         `postgres:${USER_NAME}:${USER_PASSWORD}@localhost:5432/${database}`
+// );
 
 const db = spicedPg(
     process.env.DATABASE_URL ||
-        `postgres:${USER_NAME}:${USER_PASSWORD}@localhost:5432/${database}`
+        `postgres:postgres:1234@localhost:5432/${database}`
 );
 
 // REVIEW. change Fetch first to Limit
