@@ -1,12 +1,12 @@
-const aws = require("aws-sdk");
-const fs = require("fs");
+const aws = require('aws-sdk');
+const fs = require('fs');
 
 let secrets;
 
-if (process.env.NODE_ENV == "production") {
-    secrets = process.env;
+if (process.env.NODE_ENV == 'production') {
+	secrets = process.env;
 } else {
-    secrets = require("./secrets.json");
+	secrets = require('./secrets.json');
 }
 
 /*  Create an instance of an AWS user. (is just an object)
@@ -15,41 +15,41 @@ and interact with our s3 cloud storage that amazon calls buckets
 */
 
 const s3 = new aws.S3({
-    accessKeyId: secrets.AWS_KEY,
-    secretAccessKey: secrets.AWS_SECRET,
+	accessKeyId: secrets.AWS_KEY,
+	secretAccessKey: secrets.AWS_SECRET,
 });
 
 module.exports.upload = (req, res, next) => {
-    // We valid that we have a file.
-    // console.log("in S3 req", req);
-    if (!req.file) {
-        console.log("no file on reques");
-        return req.sendStatus(500);
-    }
-    const { filename, mimetype, size, path } = req.file;
+	// We valid that we have a file.
+	// console.log("in S3 req", req);
+	if (!req.file) {
+		console.log('no file on reques');
+		return req.sendStatus(500);
+	}
+	const { filename, mimetype, size, path } = req.file;
 
-    const promise = s3
-        .putObject({
-            Bucket: "imageboard-cy",
-            ACL: "public-read",
-            Key: filename,
-            Body: fs.createReadStream(path),
-            ContentType: mimetype,
-            ContentLength: size,
-        })
-        .promise();
+	const promise = s3
+		.putObject({
+			Bucket: secrets.BUCKET_NAME,
+			ACL: 'public-read',
+			Key: filename,
+			Body: fs.createReadStream(path),
+			ContentType: mimetype,
+			ContentLength: size,
+		})
+		.promise();
 
-    promise
-        .then(() => {
-            console.log("yay it worked our image is in the ☁️");
+	promise
+		.then(() => {
+			console.log('yay it worked our image is in the ☁️');
 
-            next();
+			next();
 
-            // para borra la imagen de la carperta temporal
-            fs.unlink(path, () => {});
-        })
-        .catch((err) => {
-            console.log("Ups, sth went wrong!");
-            return res.sendStatus(500);
-        });
+			// para borra la imagen de la carpeta temporal
+			fs.unlink(path, () => {});
+		})
+		.catch((err) => {
+			console.log('Ups, sth went wrong!', err);
+			return res.sendStatus(500);
+		});
 };
