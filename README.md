@@ -55,12 +55,20 @@ The Image Board App is a full-stack web application built with Vue.js on the fro
 * PostgreSQL
 * AWS S3
 
-<!--
-
 ## Preview
 
-![Image Board Preview](preview.png) 
+### Home
 
- Replace with your own screenshot
- 
-  -->
+![Image Board Preview](/public/gif-readme/image-board-home.gif)
+
+### Upload Image
+
+![Image Board Preview](/public/gif-readme/image-board-upload-image.gif)
+
+### Pagination
+
+![Image Board Preview](/public/gif-readme/image-board-pagination.gif)
+
+### Add Comment
+
+![Image Board Preview](/public/gif-readme/image-board-add-comment.gif)
